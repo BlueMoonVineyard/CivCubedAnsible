@@ -1,0 +1,56 @@
+- name: Create Velocity server group
+  group:
+    name: velocity-server
+    state: present
+
+- name: Create Velocity server user
+  user:
+    name: velocity-server
+    group: velocity-server
+    comment: "User for CivCubed Velocity Server"
+    state: present
+
+- name: Create Velocity server directory
+  file:
+    path: /CivCubed/Velocity
+    owner: velocity-server
+    group: velocity-server
+    state: directory
+    mode: '0755'
+
+- name: Download Velocity
+  get_url:
+    url: https://api.papermc.io/v2/projects/velocity/versions/3.2.0-SNAPSHOT/builds/258/downloads/velocity-3.2.0-SNAPSHOT-258.jar
+    dest: /CivCubed/Velocity/velocity.jar
+    mode: '0775'
+    group: velocity-server
+    owner: velocity-server
+
+- name: Copy velocity.toml
+  copy:
+    src: velocity.toml
+    dest: /CivCubed/Velocity/velocity.toml
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
+- name: Copy forwarding secret
+  template:
+    src: forwarding.secret.j2
+    dest: /CivCubed/Velocity/forwarding.secret
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
+- name: Copy Velocity server systemd unit
+  copy:
+    src: VelocityServer.service
+    dest: /usr/lib/systemd/system/VelocityServer.service
+
+- name: Start Velocity server systemd unit
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    name: VelocityServer

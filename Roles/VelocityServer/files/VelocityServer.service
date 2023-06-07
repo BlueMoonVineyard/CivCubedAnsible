@@ -1,0 +1,13 @@
+[Unit] 
+Description=CivCubed Velocity Server
+
+[Service]
+WorkingDirectory=/CivCubed/Velocity
+User=velocity-server
+Group=velocity-server
+Restart=on-failure
+RestartSec=20 5
+ExecStart=java -jar --enable-preview /CivCubed/Velocity/velocity.jar nogui
+
+[Install]
+WantedBy=multi-user.target

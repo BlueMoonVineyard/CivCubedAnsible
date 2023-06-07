@@ -1,0 +1,5 @@
+---
+- name: Download Java
+  package:
+    name: java-latest-openjdk
+    state: present

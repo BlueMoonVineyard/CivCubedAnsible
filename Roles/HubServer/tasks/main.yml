@@ -1,0 +1,72 @@
+- name: Create hub server group
+  group:
+    name: hub-server
+    state: present
+
+- name: Create hub server user
+  user:
+    name: hub-server
+    group: hub-server
+    comment: "User for CivCubed Hub Server"
+    state: present
+
+- name: Create hub server directory
+  file:
+    path: /CivCubed/Hub
+    owner: hub-server
+    group: hub-server
+    state: directory
+    mode: '0755'
+
+- name: Download Paper
+  get_url:
+    url: https://api.papermc.io/v2/projects/paper/versions/1.19.4/builds/547/downloads/paper-1.19.4-547.jar
+    dest: /CivCubed/Hub/paper.jar
+    mode: '0775'
+    group: hub-server
+    owner: hub-server
+
+- name: Copy server.properties
+  copy:
+    src: server.properties
+    dest: /CivCubed/Hub/server.properties
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
+- name: Copy eula.txt
+  copy:
+    src: eula.txt
+    dest: /CivCubed/Hub/eula.txt
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
+- name: Create hub server config directory
+  file:
+    path: /CivCubed/Hub/config
+    owner: hub-server
+    group: hub-server
+    state: directory
+    mode: '0755'
+
+- name: Copy paper-global.yml
+  template:
+    src: paper-global.yml.j2
+    dest: /CivCubed/Hub/config/paper-global.yml
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
+- name: Copy hub server systemd unit
+  copy:
+    src: HubServer.service
+    dest: /usr/lib/systemd/system/HubServer.service
+
+- name: Start hub server systemd unit
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    name: HubServer

@@ -1,0 +1,13 @@
+[Unit] 
+Description=CivCubed Hub Server
+
+[Service]
+WorkingDirectory=/CivCubed/Hub/
+User=hub-server
+Group=hub-server
+Restart=on-failure
+RestartSec=20 5
+ExecStart=java -jar --enable-preview /CivCubed/Hub/paper.jar nogui
+
+[Install]
+WantedBy=multi-user.target
