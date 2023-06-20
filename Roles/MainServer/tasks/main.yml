@@ -1,0 +1,112 @@
+- name: Create main server group
+  group:
+    name: main-server
+    state: present
+
+- name: Create main server user
+  user:
+    name: main-server
+    group: main-server
+    comment: "User for CivCubed Main Server"
+    state: present
+
+- name: Create main server directory
+  file:
+    path: /CivCubed/Main
+    owner: main-server
+    group: main-server
+    state: directory
+    mode: '0755'
+
+- name: Copy Folia
+  copy:
+    src: folia.jar
+    dest: /CivCubed/Main/folia.jar
+    mode: '0775'
+    group: main-server
+    owner: main-server
+
+- name: Copy server.properties
+  copy:
+    src: server.properties
+    dest: /CivCubed/Main/server.properties
+    mode: '0660'
+    group: main-server
+    owner: main-server
+
+- name: Copy eula.txt
+  copy:
+    src: eula.txt
+    dest: /CivCubed/Main/eula.txt
+    mode: '0660'
+    group: main-server
+    owner: main-server
+
+- name: Create main server config directory
+  file:
+    path: /CivCubed/Main/config
+    owner: main-server
+    group: main-server
+    state: directory
+    mode: '0755'
+
+- name: Create main server plugins directory
+  file:
+    path: /CivCubed/Main/plugins
+    owner: main-server
+    group: main-server
+    state: directory
+    mode: '0755'
+
+- name: Copy paper-global.yml
+  template:
+    src: paper-global.yml.j2
+    dest: /CivCubed/Main/config/paper-global.yml
+    mode: '0660'
+    group: main-server
+    owner: main-server
+
+- name: Copy PacketEvents
+  copy:
+    src: PacketEvents.jar
+    dest: /CivCubed/Main/plugins/PacketEvents.jar
+    mode: '0660'
+    group: main-server
+    owner: main-server
+
+# - name: Download PacketEvents
+#   get_url:
+#     url: https://github.com/retrooper/packetevents/releases/download/v1.8.4/packetevents-1.8.4.jar
+#     dest: /CivCubed/Main/plugins/PacketEvents.jar
+#     mode: '0660'
+#     group: main-server
+#     owner: main-server
+
+- name: Download BallCore Dependency Plugin
+  get_url:
+    url: https://github.com/BlueMoonVineyard/BallCore/releases/download/ci/BallCoreDependencyPlugin.jar
+    dest: /CivCubed/Main/plugins/BallCoreDependencyPlugin.jar
+    mode: '0660'
+    group: main-server
+    owner: main-server
+
+- name: Download BallCore
+  get_url:
+    url: https://github.com/BlueMoonVineyard/BallCore/releases/download/ci/BallCore.jar
+    dest: /CivCubed/Main/plugins/BallCore.jar
+    mode: '0660'
+    group: main-server
+    owner: main-server
+
+- name: Copy main server systemd unit
+  copy:
+    src: MainServer.service
+    dest: /usr/lib/systemd/system/MainServer.service
+
+- name: Start main server systemd unit
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    name: MainServer

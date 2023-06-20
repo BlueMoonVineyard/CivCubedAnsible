@@ -1,0 +1,10 @@
+---
+- hosts: all
+  vars_files: ../vault.yml
+  roles:
+  - role: Common
+
+- hosts: main_server
+  vars_files: ../vault.yml
+  roles:
+  - role: MainServer

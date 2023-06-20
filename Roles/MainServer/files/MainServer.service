@@ -1,0 +1,13 @@
+[Unit] 
+Description=CivCubed Main Server
+
+[Service]
+WorkingDirectory=/CivCubed/Main/
+User=main-server
+Group=main-server
+Restart=on-failure
+RestartSec=20 5
+ExecStart=java -jar --enable-preview /CivCubed/Main/folia.jar nogui
+
+[Install]
+WantedBy=multi-user.target
