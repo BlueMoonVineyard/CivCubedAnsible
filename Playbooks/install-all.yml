@@ -9,6 +9,11 @@
   roles:
   - role: MainServer
 
+- hosts: database
+  vars_files: ../vault.yml
+  roles:
+  - role: Database
+
 - hosts: hub_server
   vars_files: ../vault.yml
   roles:

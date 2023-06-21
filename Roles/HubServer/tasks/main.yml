@@ -26,6 +26,30 @@
     group: hub-server
     owner: hub-server
 
+- name: Create hub server plugins directory
+  file:
+    path: /CivCubed/Hub/plugins
+    owner: hub-server
+    group: hub-server
+    state: directory
+    mode: '0755'
+
+- name: Download LuckPerms
+  get_url:
+    url: https://download.luckperms.net/1503/bukkit/loader/LuckPerms-Bukkit-5.4.89.jar
+    dest: /CivCubed/Hub/plugins/LuckPerms.jar
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
+- name: Download FAWE
+  get_url:
+    url: https://cdn.modrinth.com/data/z4HZZnLr/versions/QbAhcWGT/FastAsyncWorldEdit-Bukkit-2.6.3.jar
+    dest: /CivCubed/Hub/plugins/FAWE.jar
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
 - name: Copy server.properties
   copy:
     src: server.properties
@@ -41,6 +65,24 @@
     mode: '0660'
     group: hub-server
     owner: hub-server
+
+- name: Create hub server luckperms config directory
+  file:
+    path: /CivCubed/Hub/plugins/LuckPerms
+    owner: hub-server
+    group: hub-server
+    state: directory
+    mode: '0755'
+
+- name: Copy LuckPerms config.yml
+  template:
+    src: ../../Common/LuckPermsConfig.yml.j2
+    dest: /CivCubed/Hub/plugins/LuckPerms/config.yml
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+  vars:
+    server: hub
 
 - name: Create hub server config directory
   file:

@@ -1,0 +1,48 @@
+---
+- name: Download PostgreSQL
+  package:
+    name:
+      - postgresql-server
+      - postgresql-contrib
+      - python3-psycopg2
+    state: present
+
+- name: Check if PostgreSQL is initialized
+  stat:
+    path: /var/lib/pgsql/data/pg_hba.conf
+  register: postgres_data
+
+- name: Initialize PostgreSQL
+  shell: postgresql-setup --initdb
+  when: not postgres_data.stat.exists
+
+- name: Configure PostgreSQL
+  copy:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/data/pg_hba.conf
+    mode: '0600'
+    group: postgres
+    owner: postgres
+  when: not postgres_data.stat.exists
+
+- name: Enable PostgreSQL
+  systemd:
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    name: postgresql
+
+- name: Configure PostgreSQL Luckperms table
+  become: yes
+  become_user: postgres
+  community.postgresql.postgresql_db:
+    name: "{{ postgresql_luckperms_database }}"
+
+- name: Configure PostgreSQL user
+  become: yes
+  become_user: postgres
+  community.postgresql.postgresql_user:
+    db: "{{ postgresql_luckperms_database }}"
+    name: "{{ postgresql_username }}"
+    password: "{{ postgresql_password }}"

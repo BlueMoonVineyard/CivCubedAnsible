@@ -18,6 +18,14 @@
     state: directory
     mode: '0755'
 
+- name: Create Velocity plugin directory
+  file:
+    path: /CivCubed/Velocity/plugins
+    owner: velocity-server
+    group: velocity-server
+    state: directory
+    mode: '0755'
+
 - name: Download Velocity
   get_url:
     url: https://api.papermc.io/v2/projects/velocity/versions/3.2.0-SNAPSHOT/builds/258/downloads/velocity-3.2.0-SNAPSHOT-258.jar
@@ -33,6 +41,32 @@
     mode: '0660'
     group: velocity-server
     owner: velocity-server
+
+- name: Download LuckPerms
+  get_url:
+    url: https://download.luckperms.net/1503/velocity/LuckPerms-Velocity-5.4.89.jar
+    dest: /CivCubed/Velocity/plugins/LuckPerms.jar
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
+- name: Create Velocity server luckperms config directory
+  file:
+    path: /CivCubed/Velocity/plugins/LuckPerms
+    owner: velocity-server
+    group: velocity-server
+    state: directory
+    mode: '0755'
+
+- name: Copy LuckPerms config.yml
+  template:
+    src: ../../Common/LuckPermsConfig.yml.j2
+    dest: /CivCubed/Velocity/plugins/LuckPerms/config.yml
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+  vars:
+    server: velocity
 
 - name: Copy forwarding secret
   template:
