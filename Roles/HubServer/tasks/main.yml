@@ -44,7 +44,7 @@
 
 - name: Download FAWE
   get_url:
-    url: https://cdn.modrinth.com/data/z4HZZnLr/versions/QbAhcWGT/FastAsyncWorldEdit-Bukkit-2.6.3.jar
+    url: https://ci.enginehub.org/repository/download/bt10/22158:id/worldedit-bukkit-7.2.16-SNAPSHOT-dist.jar?branch=version/7.2.x&guest=1
     dest: /CivCubed/Hub/plugins/FAWE.jar
     mode: '0660'
     group: hub-server
