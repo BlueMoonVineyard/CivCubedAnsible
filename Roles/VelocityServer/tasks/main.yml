@@ -68,6 +68,30 @@
   vars:
     server: velocity
 
+- name: Copy ForcePack
+  copy:
+    src: ForcePack-1.2.9.jar
+    dest: /CivCubed/Velocity/plugins/ForcePack.jar
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
+- name: Create Velocity server forcepack config directory
+  file:
+    path: /CivCubed/Velocity/plugins/forcepack
+    owner: velocity-server
+    group: velocity-server
+    state: directory
+    mode: '0755'
+
+- name: Copy ForcePack config.toml
+  copy:
+    src: forcepack.toml
+    dest: /CivCubed/Velocity/plugins/forcepack/config.toml
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
 - name: Copy forwarding secret
   template:
     src: forwarding.secret.j2
