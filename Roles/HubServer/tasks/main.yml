@@ -34,6 +34,14 @@
     state: directory
     mode: '0755'
 
+- name: Download BallCore Hub
+  get_url:
+    url: https://github.com/BlueMoonVineyard/BallCore/releases/download/ci/BallCoreHub.jar
+    dest: /CivCubed/Hub/plugins/BallCoreHub.jar
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
 - name: Download LuckPerms
   get_url:
     url: https://download.luckperms.net/1503/bukkit/loader/LuckPerms-Bukkit-5.4.89.jar
