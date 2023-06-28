@@ -78,7 +78,7 @@ debug = false
     # The URL of the global pack
     url = "https://img.blackquill.cc/CivCubedResourcePack.zip"
     # The SHA-1 hash of the global pack file
-    hash = "33ea059cc1c8b0162f35d5fa14510f4fa33d6e44"
+    hash = "797354d96db2e2115231e49e6683faf7952fbde2"
     # Whether to automatically generate the SHA-1 hash. This is not recommended for security and reliability.
     # The hash setting will be ignored if this is true, however it will fall back to that if the generation fails.
     generate-hash = false

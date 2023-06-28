@@ -42,6 +42,14 @@
     group: velocity-server
     owner: velocity-server
 
+- name: Copy server icon
+  copy:
+    src: server-icon.png
+    dest: /CivCubed/Velocity/server-icon.png
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
 - name: Download LuckPerms
   get_url:
     url: https://download.luckperms.net/1503/velocity/LuckPerms-Velocity-5.4.89.jar
