@@ -66,6 +66,14 @@
     group: hub-server
     owner: hub-server
 
+- name: Download WorldGuard
+  get_url:
+    url: https://ci.enginehub.org/repository/download/bt11/22205:id/worldguard-bukkit-7.0.9-SNAPSHOT-dist.jar?branch=version/7.0.x&guest=1
+    dest: /CivCubed/Hub/plugins/WorldGuard.jar
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
 - name: Copy server.properties
   copy:
     src: server.properties
