@@ -66,6 +66,14 @@
     group: velocity-server
     owner: velocity-server
 
+- name: Download Velocitab
+  get_url:
+    url: https://hangarcdn.papermc.io/plugins/William278/Velocitab/versions/1.4.1/VELOCITY/Velocitab-1.4.1.jar
+    dest: /CivCubed/Velocity/plugins/Velocitab.jar
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
+
 - name: Create Velocity server luckperms config directory
   file:
     path: /CivCubed/Velocity/plugins/LuckPerms
@@ -83,6 +91,22 @@
     owner: velocity-server
   vars:
     server: velocity
+
+- name: Create Velocity server velocitab config directory
+  file:
+    path: /CivCubed/Velocity/plugins/velocitab
+    owner: velocity-server
+    group: velocity-server
+    state: directory
+    mode: '0755'
+
+- name: Copy Velocitab config.yml
+  copy:
+    src: velocitab.yml
+    dest: /CivCubed/Velocity/plugins/velocitab/config.yml
+    mode: '0660'
+    group: velocity-server
+    owner: velocity-server
 
 - name: Copy ForcePack
   copy:
