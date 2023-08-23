@@ -46,3 +46,32 @@
     db: "{{ postgresql_luckperms_database }}"
     name: "{{ postgresql_username }}"
     password: "{{ postgresql_password }}"
+
+- name: Download MariaDB
+  package:
+    name:
+      - mariadb-server
+      - python3-mysqlclient
+    state: present
+
+- name: Enable MariaDB
+  systemd:
+    state: started
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    name: mariadb
+
+- name: Configure MariaDB Flarum database
+  community.mysql.mysql_db:
+    state: present
+    name: "{{ mariadb_flarum_database }}"
+
+- name: Configure MariaDB Flarum user
+  community.mysql.mysql_user:
+    state: present
+    name: "{{ mariadb_flarum_user }}"
+    password: "{{ mariadb_flarum_password }}"
+    priv:
+      "{{ mariadb_flarum_database }}.*:ALL,GRANT"
+

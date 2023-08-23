@@ -1,0 +1,33 @@
+---
+- name: Download Composer
+  package:
+    name:
+      - composer
+    state: present
+
+- name: Create Flarum server group
+  group:
+    name: flarum-server
+    state: present
+
+- name: Create Flarum server user
+  user:
+    name: flarum-server
+    group: flarum-server
+    comment: "User for CivCubed Flarum Server"
+    state: present
+
+- name: Create Flarum server directory
+  file:
+    path: /CivCubed/Flarum
+    owner: flarum-server
+    group: flarum-server
+    state: directory
+    mode: '0755'
+
+- name: Install Flarum
+  chdir: /CivCubed/Flarum
+  become: yes
+  become_user: flarum-server
+  shell: |
+    composer create-project flarum/flarum .

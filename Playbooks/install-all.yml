@@ -23,3 +23,8 @@
   vars_files: ../vault.yml
   roles:
   - role: VelocityServer
+
+- hosts: flarum
+  vars_files: ../vault.yml
+  roles:
+  - role: Flarum
