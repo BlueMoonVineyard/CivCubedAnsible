@@ -3,3 +3,27 @@
   package:
     name: java-latest-openjdk
     state: present
+
+- name: Create CivCubed directory
+  file:
+    path: /CivCubed
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+
+- name: Download BallCore Common Code
+  get_url:
+    url: https://github.com/BlueMoonVineyard/BallCore/releases/download/ci/BallCoreCommonCode.jar
+    dest: /CivCubed/BallCoreCommonCode.jar
+    mode: '0644'
+    group: root
+    owner: root
+
+- name: Download BallCore Dependency Plugin
+  get_url:
+    url: https://github.com/BlueMoonVineyard/BallCore/releases/download/ci/BallCoreDependencyPlugin.jar
+    dest: /CivCubed/BallCoreDependencyPlugin.jar
+    mode: '0644'
+    group: root
+    owner: root

@@ -34,6 +34,22 @@
     state: directory
     mode: '0755'
 
+- name: Symlink BallCore CommonCode
+  file:
+    src: /CivCubed/BallCoreCommonCode.jar
+    dest: /CivCubed/Hub/plugins/BallCoreCommonCode.jar
+    owner: hub-server
+    group: hub-server
+    state: link
+
+- name: Symlink BallCore Dependency Plugin
+  file:
+    src: /CivCubed/BallCoreDependencyPlugin.jar
+    dest: /CivCubed/Hub/plugins/BallCoreDependencyPlugin.jar
+    owner: hub-server
+    group: hub-server
+    state: link
+
 - name: Download BallCore Hub
   get_url:
     url: https://github.com/BlueMoonVineyard/BallCore/releases/download/ci/BallCoreHub.jar
@@ -42,9 +58,25 @@
     group: hub-server
     owner: hub-server
 
+- name: Download EssentialsX
+  get_url:
+    url: https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+18-fdf1875.jar
+    dest: /CivCubed/Hub/plugins/EssentialsX.jar
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
+- name: Download EssentialsXSpawn
+  get_url:
+    url: https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+18-fdf1875.jar
+    dest: /CivCubed/Hub/plugins/EssentialsXSpawn.jar
+    mode: '0660'
+    group: hub-server
+    owner: hub-server
+
 - name: Download LuckPerms
   get_url:
-    url: https://download.luckperms.net/1503/bukkit/loader/LuckPerms-Bukkit-5.4.89.jar
+    url: https://download.luckperms.net/1519/bukkit/loader/LuckPerms-Bukkit-5.4.106.jar
     dest: /CivCubed/Hub/plugins/LuckPerms.jar
     mode: '0660'
     group: hub-server
@@ -107,6 +139,32 @@
     owner: hub-server
   vars:
     server: hub
+
+- name: Create hub server essentials config directory
+  file:
+    path: /CivCubed/Hub/plugins/Essentials
+    owner: hub-server
+    group: hub-server
+    state: directory
+    mode: '0755'
+
+- name: Copy hub server essentials config
+  copy:
+    src: EssentialsConfig.yml
+    dest: /CivCubed/Hub/plugins/Essentials/config.yml
+
+- name: Create hub server worldguard config directory
+  file:
+    path: /CivCubed/Hub/plugins/WorldGuard
+    owner: hub-server
+    group: hub-server
+    state: directory
+    mode: '0755'
+
+- name: Copy hub server worldguard config
+  copy:
+    src: WorldGuardConfig.yml
+    dest: /CivCubed/Hub/plugins/WorldGuard/config.yml
 
 - name: Create hub server config directory
   file:

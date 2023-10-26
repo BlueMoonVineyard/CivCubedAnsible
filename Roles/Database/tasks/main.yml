@@ -33,7 +33,7 @@
     masked: no
     name: postgresql
 
-- name: Configure PostgreSQL Luckperms table
+- name: Configure PostgreSQL Luckperms database
   become: yes
   become_user: postgres
   community.postgresql.postgresql_db:
@@ -46,6 +46,13 @@
     db: "{{ postgresql_luckperms_database }}"
     name: "{{ postgresql_username }}"
     password: "{{ postgresql_password }}"
+
+- name: Configure PostgreSQL CivCubed database
+  become: yes
+  become_user: postgres
+  community.postgresql.postgresql_db:
+    name: "{{ postgresql_civcubed_database }}"
+    owner: "{{ postgresql_username }}"
 
 - name: Download MariaDB
   package:
