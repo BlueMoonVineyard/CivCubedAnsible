@@ -98,7 +98,7 @@
     group: main-server
     state: link
 
-- name: Create Velocity server ballcorevelocityplugin config directory
+- name: Create Main server BallCore config directory
   file:
     path: /CivCubed/Main/plugins/BallCore
     owner: main-server
@@ -121,6 +121,24 @@
     mode: '0660'
     group: main-server
     owner: main-server
+
+- name: Create Main server luckperms config directory
+  file:
+    path: /CivCubed/Main/plugins/LuckPerms
+    owner: main-server
+    group: main-server
+    state: directory
+    mode: '0755'
+
+- name: Copy LuckPerms config.yml
+  template:
+    src: ../../Common/LuckPermsConfig.yml.j2
+    dest: /CivCubed/Main/plugins/LuckPerms/config.yml
+    mode: '0660'
+    group: main-server
+    owner: main-server
+  vars:
+    server: main
 
 - name: Copy main server systemd unit
   copy:
