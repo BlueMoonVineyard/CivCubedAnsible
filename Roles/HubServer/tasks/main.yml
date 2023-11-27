@@ -60,7 +60,7 @@
 
 - name: Download EssentialsX
   get_url:
-    url: https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+18-fdf1875.jar
+    url: https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+21-c68b277.jar
     dest: /CivCubed/Hub/plugins/EssentialsX.jar
     mode: '0660'
     group: hub-server
@@ -68,7 +68,7 @@
 
 - name: Download EssentialsXSpawn
   get_url:
-    url: https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+18-fdf1875.jar
+    url: https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsXSpawn-2.21.0-dev+21-c68b277.jar
     dest: /CivCubed/Hub/plugins/EssentialsXSpawn.jar
     mode: '0660'
     group: hub-server
